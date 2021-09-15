@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.solinvictus.SpringSecurityDemo.Entity.User;
 
-/*@Repository
+@Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-
+	//works automatically 
+	User findByUsername(String username);
 }
-*/
