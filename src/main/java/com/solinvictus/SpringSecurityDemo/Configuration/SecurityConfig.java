@@ -15,7 +15,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// For Authentication
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("username 1").password("password 1").roles("USER", "ADMIN");
+		auth.inMemoryAuthentication().withUser("username 1")
+			.password("$2a$10$hdIGCIqPKzw2FVZpzJMlROoVbqcFShB8ty87IpScVTpMRl43b0xYa").roles("USER", "ADMIN");
 	}
 
 	// For Authorization
@@ -29,10 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultSuccessUrl("/home").permitAll();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-		//return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 }
