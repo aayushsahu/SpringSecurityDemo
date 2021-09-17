@@ -16,24 +16,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailService;
+
 	// For Authentication
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		auth.inMemoryAuthentication().withUser("username 1")
 //			.password("$2a$10$hdIGCIqPKzw2FVZpzJMlROoVbqcFShB8ty87IpScVTpMRl43b0xYa").roles("USER", "ADMIN");
-		
+
 		auth.userDetailsService(userDetailService);
 	}
 
 	// For Authorization
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.csrf().disable()
-			.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN")
-			.anyRequest().hasAnyRole("USER").and()
-			.formLogin()                         //.loginPage("/login")
-			.defaultSuccessUrl("/home").permitAll();
+		http.csrf().disable().authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN").anyRequest()
+				.hasAnyRole("USER").and().formLogin().loginPage("/login.html") // for custom login page
+				.usernameParameter("user").passwordParameter("password")
+				.defaultSuccessUrl("/home").permitAll();
 	}
 
 	@Bean
