@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Authorities implements GrantedAuthority {
 
@@ -18,14 +20,15 @@ public class Authorities implements GrantedAuthority {
 
 	private String authority;
 
-	@ManyToOne()
+	@ManyToOne
+	@JsonIgnore
 	private User user;
 
 	public Authorities() {
 
 	}
 
-	public Authorities(String authority, User user) {
+	public Authorities(String authority) {
 		super();
 		this.authority = authority;
 	}
@@ -55,4 +58,8 @@ public class Authorities implements GrantedAuthority {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return "Authorities [id=" + id + ", authority=" + authority + ", user=" + user + "]";
+	}
 }

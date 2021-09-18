@@ -2,6 +2,7 @@ package com.solinvictus.SpringSecurityDemo.Entity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,8 +25,8 @@ public class User {
 	private String password;
 	private String mobileNo;
 
-	@OneToMany(fetch =FetchType.EAGER , cascade = CascadeType.ALL , mappedBy = "user")
-	private List<Authorities> authorities;
+	@OneToMany(fetch =FetchType.EAGER , cascade = CascadeType.ALL, mappedBy = "user")
+	private Set<Authorities> authorities;
 
 	public User() {
 
@@ -38,10 +39,10 @@ public class User {
 		this.mobileNo = mobileNo;
 	}
 
-	public List<Authorities> getAuthorities() {
+	public Set<Authorities> getAuthorities() {
 		return authorities;
 	}
-	public void setAuthorities(List<Authorities> authorities) {
+	public void setAuthorities(Set<Authorities> authorities) {
 		this.authorities = authorities;
 	}
 
@@ -79,7 +80,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", mobileNo=" + mobileNo
-				+ "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", mobileNo=" + mobileNo + "]";
 	}
+
+	
 }
