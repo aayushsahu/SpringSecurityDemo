@@ -29,10 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// For Authorization
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/img/**").permitAll();
+		
 		http.csrf().disable().authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN").anyRequest()
-				.hasAnyRole("USER").and().formLogin().loginPage("/login.html") // for custom login page
+				.hasAnyRole("USER").and().formLogin().loginPage("/login") // for custom login page
 				.usernameParameter("user").passwordParameter("password")
-				.defaultSuccessUrl("/home").permitAll();
+				.defaultSuccessUrl("/home").permitAll()
+				.and().logout().deleteCookies("remove").invalidateHttpSession(false)
+ 				.logoutUrl("/logout").logoutSuccessUrl("/login");
 	}
 
 	@Bean

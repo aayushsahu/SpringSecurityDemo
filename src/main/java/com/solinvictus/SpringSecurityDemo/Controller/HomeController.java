@@ -29,6 +29,4 @@ public class HomeController {
 		List<User> users = adminServices.getAllUserAccounts();
 		return users;
 	}
-	
-
 }
