@@ -1,5 +1,7 @@
 package com.solinvictus.SpringSecurityDemo.Configuration;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		auth.inMemoryAuthentication().withUser("username 1")
 //			.password("$2a$10$hdIGCIqPKzw2FVZpzJMlROoVbqcFShB8ty87IpScVTpMRl43b0xYa").roles("USER", "ADMIN");
-
+		
 		auth.userDetailsService(userDetailService);
 	}
 
@@ -36,11 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("user").passwordParameter("password")
 				.defaultSuccessUrl("/home").permitAll()
 				.and().logout().deleteCookies("remove").invalidateHttpSession(false)
- 				.logoutUrl("/logout").logoutSuccessUrl("/login");
+ 				.logoutUrl("/logout").logoutSuccessUrl("/login").and().httpBasic();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 }
