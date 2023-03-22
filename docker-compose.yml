@@ -1,0 +1,12 @@
+services:
+  db:
+    image: mysql
+    volumes:
+      - "./.data/db:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: springsecuritydemo
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      42333:3306
